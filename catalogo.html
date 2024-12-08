@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyReads | Catalogo</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bookshelf-container {
+      max-width: 560px;
+      margin: 0 auto 5%;
+      padding: 20px 0 0;
+      background-color: #8b5a2b;
+      justify-content: space-evenly;
+      border-radius: 8px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .bookshelf-container.disabled {
+      filter: blur(5px);
+      pointer-events: none;
+    }
+
+    /* Singolo scaffale */
+    .bookshelf {
+      background-color: rgb(111, 57, 19);
+      padding: 10px;
+      border-radius: 4px;
+      width: 90%;
+      margin-bottom: 20px;
+    }
+
+    /* Titolo scaffale */
+    .bookshelf-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #c6bfbf;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* Contenitore per i libri (disposti orizzontalmente) */
+    .bookshelf-books {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Singolo libro */
+    .book {
+      width: 60px;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: .3s;
+      background: url('https://www.transparenttextures.com/patterns/old-map.png'), linear-gradient(135deg, rgba(204, 170, 125, 0.5) 25%, rgba(140, 95, 66, 0.5) 75%) center;
+      background-size: 80%;
+      box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.15);
+      opacity: .95;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+
+    .book:nth-child(odd) {
+      background-image: url('https://www.transparenttextures.com/patterns/asfalt.png'), linear-gradient(135deg, rgba(204, 170, 125, 0.5) 25%, rgba(140, 95, 66, 0.5) 75%);
+    }
+
+    .book:nth-child(even) {
+      background-image: url('https://www.transparenttextures.com/patterns/old-map.png'), linear-gradient(135deg, rgba(204, 170, 125, 0.5) 25%, rgba(140, 95, 66, 0.5) 75%);
+    }
+
+    .book:before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index: -1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .book:hover {
+      transform: translateY(-5px) scale(1.2) !important;
+      border: 2px solid #fff;
+      z-index: 1;
+      opacity: 1;
+    }
+
+    .book span {
+      font-size: 17px;
+      text-align: center;
+      color: #c6bfbf;
+      width: 100%;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      padding: 5px 3px;
+      background: rgba(0, 0, 0, 0.4);
+      transition: .3s ease;
+      border-radius: 5px;
+    }
+
+    .book span img {
+      opacity: .7
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: .95
+      }
+    }
+
+    .modal-header .close {
+      padding: 10px !important;
+      margin: 0 10px 0 0 !important
+    }
+
+    .testo {
+      font-size: 1.3em;
+    }
+
+    .tts figcaption {
+      width: max-content;
+      font-size: 1.2em;
+    }
+
+    .tts audio {
+      width: 60%
+    }
+
+    /* Cambiamento dei controlli */
+    audio::-webkit-media-controls-panel {
+      background-color: var(--secondary-color)
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-timeline,
+    audio::-webkit-media-controls-volume-slider {
+      filter: brightness(1.2);
+    }
+
+    audio::-webkit-media-controls-current-time,
+    audio::-webkit-media-controls-time-remaining {
+      color: white;
+      font-weight: bold;
+    }
+
+    @media (min-width: 1200px) {
+      .bookshelf-container {
+        max-width: 1100px;
+      }
+
+      .modal-xl {
+        max-width: 1300px;
+      }
+
+      .bookshelf {
+        width: 46%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar d-flex justify-content-between align-items-center flex-column flex-lg-row w-100" role="navigation">
+    <a href="index.html" id="logo" class="d-flex align-items-center mb-1 mb-lg-0" aria-label="Vai alla home">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Logo di EasyReads" width="50">
+      <h1 class="m-0">EasyReads</h1>
+    </a>
+    <ul class="list-unstyled d-flex">
+      <li>
+        <a href="index.html" aria-label="Vai alla home" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-home mr-1"></i> Home
+        </a>
+      </li>
+      <li>
+        <a href="catalogo.html" aria-label="Vai al catalogo" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-book-open mr-1"></i> Catalogo
+        </a>
+      </li>
+      <li>
+        <a href="contatti.html" aria-label="Vai alla pagina dei contatti"
+          class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-info-circle mr-1"></i> Contatti
+        </a>
+      </li>
+      <li>
+        <a href="about-me.html" aria-label="Vai alla pagina about me"
+          class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-user mr-1"></i> About Me
+        </a>
+      </li>
+    </ul>
+    <button type="button" id="viewCartBtn" class="btn btn-light mt-2 mt-lg-0">
+      <i class="fa-solid fa-cart-shopping mr-2"></i>Carrello vuoto
+    </button>
+  </nav>
+
+  <main>
+    <h1 class="text-center display-4 font-weight-bold mb-4">Catalogo</h1>
+    <p class="mb-3 text-center lead">Sapevi che abbiamo attivato il servizio di consegna a domicilio dei libri? Se non
+      puoi
+      venire tu in biblioteca, veniamo noi da te!
+    </p>
+
+    <div class="bookshelf-container d-flex flex-wrap flex-column flex-lg-row" id="scaffali"></div>
+
+    <!-- Modal Lightbox per il libro -->
+    <div id="bookLightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bookLightboxLabel" inert>
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+          <!-- Header -->
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title mx-auto" id="bookLightboxLabel">Dettagli del Libro</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>&times;</span>
+            </button>
+          </div>
+
+          <!-- Body -->
+          <div class="modal-body mx-2">
+            <div class="row">
+              <div class="col-md-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/3145/3145765.png" title="Copertina del Libro"
+                  alt="Copertina del Libro" class="copertina img-fluid rounded mx-auto d-block" width="100">
+              </div>
+              <div class="col-md-10">
+                <h4 class="font-weight-bold">Trama:</h4>
+                <p class="testo"></p>
+              </div>
+            </div>
+            <img class="caa mx-auto mt-3 d-block img-fluid" title="Trama in CAA" alt="Trama in CAA" />
+            <figure class="tts">
+              <figcaption class="d-block mx-auto mt-3">Ascolta la storia:</figcaption>
+              <audio controls class="d-block mx-auto"></audio>
+            </figure>
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer border-top-0 mx-auto">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              <i class="fa-solid fa-xmark mr-2"></i>Chiudi
+            </button>
+            <button type="button" class="btn btn-primary book-order-btn">
+              <i class="fa-solid fa-cart-shopping mr-2"></i>Aggiungi al carrello
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carrello Modal -->
+    <div id="cartModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+      inert>
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cartModalLabel">Il tuo carrello</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="cartItemsList"></ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                class="fa-solid fa-xmark mr-2"></i>Chiudi</button>
+            <button type="button" class="btn btn-primary" id="checkoutBtn"><i
+                class="fa-solid fa-square-check mr-2"></i>Procedi con la prenotazione</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Pulsante vai in cima -->
+  <button id="back-to-top" type="button" onclick="window.scroll(0, 0)" class="btn back-to-top" title="Scorri in alto"
+    aria-label="Torna in cima alla pagina">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white text-center py-3">
+    <p class="mb-0">© 2024 Marco Petrucci - EasyReads. Progetto per Tecnologie Assistive per la Didattica.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $(function () {
+      // Colori casuali per i libri
+      const colors = ['#B0E0E6', '#98FB98', '#FF6347', '#FF1493', '#F0E68C', '#FFF0F5', '#ADD8E6', '#FAEBD7', '#E0FFFF', '#F5F5DC', '#FFB6C1', '#F0FFF0'];
+
+      // Array di storie e titoli
+      const stories = [
+        {
+          titolo: "Il Gatto Astronauta",
+          riassunto: "Un piccolo gatto di nome Leo sogna di andare sulla luna. Un giorno, costruì una nave spaziale usando scatole di cartone: volò fra le stelle, e trovò un piccolo uccello dello spazio che gli insegnò a ballare senza usare le ali!"
+        },
+        {
+          titolo: "La Lupa e mamma Orsa",
+          riassunto: "Una giovane lupa solitaria di nome Luna e una mamma orsa chiamata Stella si trovano dentro al bosco. Essi scoprono che, nonostante siano differenti, sono una squadra molto buona, uguale come la luna e le stelle."
+        },
+        {
+          titolo: "Il Viaggio della Farfalla",
+          riassunto: "Una farfalla di nome Clara parte per un lungo viaggio attraverso il giardino, esplorando fiori pieni di colori, facendo e amicizie con delle api, delle coccinelle e colibrì. Dopo varie ore passate a giocare, scopre che il suo posto migliore è quello che la fa stare con gli amici che ama."
+        },
+        {
+          titolo: "Il Piccolo Drago e la Nuvola",
+          riassunto: "Un piccolo drago, che non sa volare, incontra una nuvola che gli insegna a prendere il volo. Essi volano in cielo, e il piccolo drago impara che con decisione può superare qualsiasi paura."
+        },
+        {
+          titolo: "La Magica Pianola di Nino",
+          riassunto: "Nino trova un vecchio pianoforte che suona note musicali magiche, che lo portano in una avventura molto bella, dove diventa amico di alcuni animali che suonano alcuni strumenti musicali: un cavallo e un bue che suonano il violino e di una tartaruga che suona il flauto. Nacque un bel gruppo musicale."
+        },
+        {
+          titolo: "La Giungla dei Colori",
+          riassunto: "In un bosco dove tutto è grigio, un piccolo pappagallo di nome Pio vola in cerca di colori persi. Con l'aiuto di tutti gli animali, trova tutti i colori, portando la felicità e l'amore dentro al cuore del bosco."
+        },
+        {
+          titolo: "Il Piccolo Semino",
+          riassunto: "Un semino solitario sotto la terra sogna di diventare un albero. Con il passare delle stagioni, cresce al punto che muta in un grande albero, che possiede sotto le sue foglie tutti gli animali in cerca di riparo contro la pioggia forte."
+        },
+        {
+          titolo: "Il Castello di Zucchero",
+          riassunto: "Un giovane re, stanco di passare giornate tutte uguali, decide di costruire un castello di zucchero. Ma quando arrivò una tempesta, il castello si sciolse. Il re imparò che l'amore e l'amicizia sono più importanti di qualsiasi dolce."
+        },
+        {
+          titolo: "La Tartaruga e la Nuvola",
+          riassunto: "Una tartaruga molto lenta di nome Tilly sogna di volare. Un giorno, una nuvola scese dal cielo, offrendo di dare a lei un passaggio. Salendo verso il cielo, Tilly scoprì subito di aver trovato il suo posto dentro al mondo, scoprendo tutte le bellezze che ci sono oltre le nuvole."
+        },
+        {
+          titolo: "Il Sogno di Leo il Leone",
+          riassunto: "Leo, un leone che ha paura di ruggire, durante la notte, ebbe un sogno, dentro al quale il suo ruggito poteva salvare un intero branco di animali erbivori da quelli carnivori. Quando si svegliò, capì subito che il suo ruggito aveva un potere magico. La mattina seguente, diventò protettore di tutti gli animali della savana."
+        },
+        {
+          titolo: "Frankenstein e la Luce Magica",
+          riassunto: "In un mondo lontano lontano viveva, in un castello scuro, un mostro chiamato Frankenstein. Un giorno, trovò una piccola lanterna che poteva produrre una luce magica. Seguendo la luce, scoprì un giardino pieno di fiori che brillavano nella oscurità della notte. Frankenstein imparò che anche le cose diverse possono essere uniche."
+        },
+        {
+          titolo: "Il Pesciolino Coraggioso",
+          riassunto: "Un pesce di nome Blu vive in un piccolo lago. Un giorno, viene a sapere di un grande fiume oltre le rocce. Con l'aiuto di una rana, Blu saltò oltre le rocce e scoprì il fiume, dove trovò nuovi amici, nuotando in acque pulite."
+        }
+      ];
+
+      const categorie = ["Fantascienza", "Storici", "Gialli e Thriller", "Biografie", "Narrativa", "Poesia e Teatro"];
+
+      // Creazione degli scaffali e dei libri
+      for (let i = 0; i < 6; i++) {
+        let shelf = `<div class="bookshelf mx-auto mx-lg-0">
+                      <h3 class="bookshelf-title">${categorie[i]}</h3>
+                      <div class="bookshelf-books">`;
+
+        // Creazione dei libri
+        let rotazione = Math.floor(Math.random() * 10) - 5;
+        for (let j = 0; j < 6; j++) {
+          let numero_storia = Math.floor(Math.random() * 12);
+          shelf += `<div class="book" style="background-color:${colors[Math.floor(Math.random() * colors.length)]}; width:${Math.floor(Math.random() * 60 + 80)}px; transform: rotate(${rotazione}deg) rotate(${Math.random() * 5 - 2}deg);" onclick="openStoryModal(${numero_storia})">
+                      <span style="margin-top: ${Math.random() * 120 - 60}px">
+                        Libro ${i * 6 + j + 1}
+                        <img src="images/etichette/${numero_storia + 1}.png" alt="Libro" class="img-fluid rounded" width="50">
+                      </span>
+                    </div>`;
+        }
+
+        shelf += `</div></div>`;
+        $('#scaffali').append(shelf);
+      }
+
+      // Funzione per aprire il modal con i dettagli della storia
+      window.openStoryModal = bookIndex => {
+        // Inserisci il titolo, il testo e l'immagine della storia nel modal
+        $('#bookLightboxLabel').text(stories[bookIndex].titolo);
+        $('#bookLightbox .modal-body .testo').text(stories[bookIndex].riassunto);
+        $('#bookLightbox .modal-body .copertina').attr('src', "images/etichette/" + (bookIndex + 1) + ".png");
+        $('.modal-body .caa').attr('src', "images/storie/" + (bookIndex + 1) + ".jpg");
+        $('.modal-body .tts audio').attr('src', "tts/" + (bookIndex + 1) + ".mp3");
+
+        $('#bookLightbox').modal('show').removeAttr('inert');
+      };
+
+      // Funzioni per gestire i preordini
+      var cart = JSON.parse(localStorage.getItem("libri_prenotati")) || [];
+
+      // Aggiorna la lista del carrello
+      function updateCartDisplay() {
+        $('#cartItemsList').empty();
+
+        if (!cart.length) {
+          $('#cartItemsList').append('<li class="d-flex align-items-center mb-2">Il tuo carrello è vuoto.</li>');
+          $('#checkoutBtn').hide(); // Nasconde il pulsante "Procedi con la prenotazione"
+          $('#viewCartBtn').html(`<i class="fa-solid fa-cart-shopping mr-2"></i>Carrello vuoto`);
+        }
+        else {
+          cart.forEach((book, index) => {
+            $('#cartItemsList').append(`
+              <li class="d-flex align-items-center mb-2">
+                <img src="${book.image}" alt="${book.title}" width="50" class="mr-2">
+                <span>${book.title}</span>
+                <button class="btn btn-sm btn-danger ml-auto remove-btn" data-index="${index}">
+                  <i class="fa-solid fa-trash mr-2"></i> Rimuovi
+                </button>
+              </li>
+            `);
+          });
+          $('#checkoutBtn').show(); // Mostra il pulsante "Procedi con la prenotazione"
+          $('#viewCartBtn').html(`<i class="fa-solid fa-cart-shopping mr-2"></i>Visualizza carrello (${cart.length})`);
+        }
+      }
+
+      // Salva il carrello nel localStorage
+      function saveCart() {
+        localStorage.setItem("libri_prenotati", JSON.stringify(cart));
+      }
+
+      // Aggiunta di un libro al carrello
+      $('.book-order-btn').on('click', function () {
+        const bookTitle = $('#bookLightbox .modal-title').text();
+        const bookImage = $('#bookLightbox img').attr('src');
+
+        cart.push({ title: bookTitle, image: bookImage });
+
+        saveCart();
+        updateCartDisplay();
+        Swal.fire({
+          toast: true,
+          position: 'top',
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false,
+          text: 'Libro aggiunto al carrello!',
+          color: '#343a40'
+        });
+      });
+
+      // Rimozione di un libro dal carrello
+      $('#cartItemsList').on('click', '.remove-btn', function () {
+        cart.splice($(this).data('index'), 1);
+        saveCart();
+        updateCartDisplay();
+      });
+
+      // Inizializzazione al caricamento
+      updateCartDisplay();
+
+      // Pulsante Visualizza Carrello mostra il modal
+      $('#viewCartBtn').click(() => $('#cartModal').modal('show').removeAttr('inert'));
+
+      // Prenota i libri
+      $('#checkoutBtn').on('click', async function () {
+        const { value: scelta } = await Swal.fire({
+          title: 'Conferma la prenotazione',
+          html: `
+            <div class="custom-radio-group">
+              <label class="custom-radio">
+                <input type="radio" name="scelta" value="casa">
+                <span class="radio-label"><i class="fa-solid fa-truck mr-2"></i>Ricevi a casa</span>
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="scelta" value="biblioteca">
+                <span class="radio-label"><i class="fa-solid fa-bookmark mr-2"></i>Ritira in biblioteca</span>
+              </label>
+            </div>
+          `,
+          showCancelButton: true,
+          cancelButtonText: `<i class="fa-solid fa-times mr-2"></i>Torna indietro`,
+          confirmButtonText: '<i class="fa-solid fa-circle-check mr-2"></i>Procedi',
+          customClass: { confirmButton: 'btn-success' },
+          preConfirm: () => {
+            const scelta = document.querySelector('input[name="scelta"]:checked');
+            if (!scelta) {
+              Swal.showValidationMessage('Scegli una opzione, oppure torna indietro.');
+            }
+            return scelta ? scelta.value : null;
+          },
+          allowOutsideClick: false
+        });
+
+        if (scelta) {
+          let successMessage = scelta === 'casa'
+            ? 'Libri prenotati con successo, arriveranno presto a casa tua!'
+            : 'Libri prenotati con successo, puoi ritirarli in biblioteca!';
+
+          Swal.fire({
+            icon: 'success',
+            html: successMessage,
+            color: '#343a40',
+            customClass: { confirmButton: 'btn-success' },
+          });
+
+          localStorage.removeItem("libri_prenotati");
+          cart = [];
+          $('#cartItemsList').empty().append('<li class="d-flex align-items-center mb-2">Il tuo carrello è vuoto.</li>');
+          $('#viewCartBtn').html(`<i class="fa-solid fa-cart-shopping mr-2"></i>Carrello vuoto`);
+          $('#checkoutBtn').hide();
+          $('#cartModal').modal('hide');
+        }
+      });
+
+      // Esegui il codice solo sugli schermi superiori di 800px-> Mostra icona Go to Top quando la pagina viene scrollata di 500px
+      if ($(window).width() > 800) {
+        $(window).scroll(function () {
+          if ($(document).scrollTop() > 100) $("#back-to-top").css("opacity", 1);
+          else $("#back-to-top").css("opacity", 0);
+        });
+      }
+
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) $('.navbar').addClass('scrolled');
+        else $('.navbar').removeClass('scrolled');
+      });
+    });
+  </script>
+</body>
+
+</html>

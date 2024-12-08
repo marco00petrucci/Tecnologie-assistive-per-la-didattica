@@ -1,0 +1,241 @@
+:root {
+  --primary-color: #6b3e20;
+  --secondary-color: #CDAA7D;
+}
+
+html {
+  scroll-behavior: smooth
+}
+
+body {
+  font-family: 'Goudy Bookletter 1911', serif;
+  background-color: #f5f5f5
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+.btn.focus,
+.btn:focus {
+  box-shadow: 0 0 0 .2rem rgb(107 62 32 / 40%)
+}
+
+/* Stili per la barra di navigazione */
+.navbar {
+  padding: 0 20px 20px;
+  color: white;
+  background-color: #3e2723;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: .3s ease
+}
+
+.navbar a {
+  color: #fff;
+  padding: 10px 15px;
+  transition: .2s;
+}
+
+.navbar a:hover {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  text-decoration: none
+}
+
+.navbar #logo h1 {
+  font-size: 2rem;
+}
+
+.navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px 10px 15px;
+}
+
+#logo {
+  gap: 15px;
+  text-decoration: none;
+  color: #fff !important;
+}
+
+.navbar h1,
+.navbar img {
+  transition: .3s;
+}
+
+.navbar.scrolled #logo {
+  padding: 5px !important;
+}
+
+.navbar.scrolled img {
+  width: 40px;
+}
+
+.navbar.scrolled h1 {
+  font-size: 1.9em;
+}
+
+.navbar ul {
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: auto;
+  transition: .3s;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.navbar.scrolled ul li a {
+  font-size: 1rem;
+}
+
+main {
+  margin-top: 230px;
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #343a40;
+  color: #fff;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Pulsante Scroll to top */
+#back-to-top {
+  background: var(--primary-color);
+  color: #fff;
+  opacity: 0;
+  transition: .3s;
+  position: absolute;
+  bottom: 1.25rem;
+  position: fixed;
+  right: 1.25rem;
+  z-index: 999;
+}
+
+#back-to-top:hover {
+  background: var(--secondary-color);
+}
+
+@media screen and (min-width: 992px) {
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .navbar.scrolled {
+    padding: 10px 20px;
+  }
+
+  .navbar.scrolled ul li a {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .navbar ul {
+    gap: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navbar ul li a {
+    font-size: 20px
+  }
+}
+
+@media (min-width: 1200px) {
+  main {
+    margin-top: 120px;
+  }
+}
+
+/* Scrollbar e selection */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 50px
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color)
+}
+
+::-moz-selection {
+  color: white;
+  background: var(--primary-color)
+}
+
+::selection {
+  color: white;
+  background: var(--primary-color)
+}
+
+
+.custom-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.custom-radio {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-radio input[type="radio"] {
+  display: none;
+}
+
+.custom-radio .radio-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-left: 8px;
+}
+
+.custom-radio:hover {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+.custom-radio input[type="radio"]:checked+.radio-label {
+  color: #1e7e34;
+  font-weight: 600;
+}
+
+.custom-radio input[type="radio"]:checked+.radio-label::before {
+  content: "✔ ";
+  color: #1e7e34;
+}

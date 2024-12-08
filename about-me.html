@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyReads | About me</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #about-me p,
+    #accessibility p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 900px;
+    }
+
+    .text-primary {
+      color: var(--primary-color) !important
+    }
+
+    .rounded-circle {
+      border: 4px solid #ddd;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    #accessibility {
+      border-radius: 50px 10px;
+    }
+
+    a.scroll-down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: max-content;
+    }
+
+    a.scroll-down i {
+      font-size: 50px;
+      animation: bounce 3s infinite ease-out
+    }
+
+    a.scroll-down:hover {
+      text-decoration: none;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar d-flex justify-content-between align-items-center flex-column flex-lg-row w-100" role="navigation">
+    <a href="index.html" id="logo" class="d-flex align-items-center mb-1 mb-lg-0" aria-label="Vai alla home">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Logo di EasyReads" width="50">
+      <h1 class="m-0">EasyReads</h1>
+    </a>
+    <ul class="list-unstyled d-flex">
+      <li>
+        <a href="index.html" aria-label="Vai alla home" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-home mr-1"></i> Home
+        </a>
+      </li>
+      <li>
+        <a href="catalogo.html" aria-label="Vai al catalogo" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-book-open mr-1"></i> Catalogo
+        </a>
+      </li>
+      <li>
+        <a href="contatti.html" aria-label="Vai alla pagina dei contatti" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-info-circle mr-1"></i> Contatti
+        </a>
+      </li>
+      <li>
+        <a href="about-me.html" aria-label="Vai alla pagina about me" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-user mr-1"></i> About Me
+        </a>
+      </li>
+    </ul>
+    <button type="button" id="viewCartBtn" class="btn btn-light mt-2 mt-lg-0 d-none">
+      <i class="fa-solid fa-cart-shopping mr-2"></i>Visualizza carrello
+    </button>
+  </nav>
+
+  <main class="container">
+    <!-- Sezione Chi sono -->
+    <section id="about-me" class="text-center mb-4" aria-labelledby="about-me-heading">
+      <h2 class="display-4 font-weight-bold mb-4" id="about-me-heading">Chi sono</h2>
+      <img src="https://secure.gravatar.com/avatar/e7bf72097ef6679f362d97a03fb62411?s=400"
+        title="Marco Petrucci, sviluppatore di EasyReads" alt="Marco Petrucci, sviluppatore di EasyReads"
+        class="rounded-circle shadow-lg mb-4" width="150" height="150">
+      <p class="lead">Mi chiamo <strong>Marco Petrucci</strong> e sono laureato nella facoltà triennale di Informatica
+        Umanistica presso l'Università di Pisa.</p>
+      <p class="mb-3">La mie passioni per l'informatica e il tema dell'accessibilità mi ha portato a sviluppare
+        <strong>EasyReads</strong>, una piattaforma pensata per rendere la lettura più accessibile a tutti.
+      </p>
+      <p class="text-muted">Questo sito è stato realizzato come progetto per l'esame di Tecnologie Assistive per la
+        Didattica per l'anno accademico 2024/2025.</p>
+    </section>
+
+    <a href="#accessibility" class="scroll-down mx-auto"
+      aria-label="Scorri verso la sezione Inclusione e Accessibilità">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+
+    <!-- Sezione Inclusione e Accessibilità -->
+    <section id="accessibility" class="text-center bg-light mt-4 py-5 px-5">
+      <h2 class="display-4 font-weight-bold mb-4 text-primary">Inclusione e Accessibilità</h2>
+      <p class="lead">L'inclusione non è solo un principio astratto, ma un impegno concreto per garantire che tutti
+        possano accedere alle informazioni e partecipare attivamente alla vita digitale.</p>
+      <p>In <strong>EasyReads</strong> ho adottato strategie di design accessibile per favorire
+        l'accesso ai contenuti, pensando anche a chi può avere difficoltà visive o cognitive. Credo fermamente che il
+        web debba essere un luogo accogliente per tutti, senza barriere.</p>
+
+      <!-- Sezione Obiettivi e Strumenti -->
+      <div class="d-flex justify-content-around align-items-center mt-5 flex-column flex-md-row">
+        <div class="text-center">
+          <i class="fas fa-bullseye text-primary fa-3x mb-3"></i>
+          <h3 class="font-weight-bold">Obiettivi del Sito</h3>
+          <p class="px-4">Il principale obiettivo di <strong>EasyReads</strong> è abbattere le barriere di accesso alla
+            lettura,
+            rendendo i testi comprensibili e accessibili a tutti.</p>
+        </div>
+        <div class="text-center">
+          <i class="fas fa-tools text-primary fa-3x mb-3"></i>
+          <h3 class="font-weight-bold">Strumenti Utilizzati</h3>
+          <p class="px-4">Per lo sviluppo del sito ho utilizzato tecnologie come
+            <strong><a href="https://developer.mozilla.org/it/docs/Web/HTML" target="_blank">HTML5</a></strong>,
+            <strong><a href="https://developer.mozilla.org/it/docs/Web/CSS" target="_blank">CSS3</a></strong>,
+            <strong><a href="https://developer.mozilla.org/it/docs/Web/JavaScript" target="_blank">JS</a></strong>,
+            <strong><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a></strong>,
+            <strong><a href="https://fontawesome.com/" target="_blank">Font Awesome</a></strong>
+            e i software <a href="https://www.pictofacile.com/it/app"target="_blank"><strong>Pictofacile</strong></a> e <a href="https://www.aactalkingtabs.com/araword-it.html"
+              target="_blank"><strong>Araword</strong></a> per creare contenuti compatibili con la <a
+              href="https://it.wikipedia.org/wiki/Comunicazione_aumentativa_e_alternativa" target="_blank">CAA</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrello Modal -->
+    <div id="cartModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+      inert>
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cartModalLabel">Il tuo carrello</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="cartItemsList"></ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark mr-2"></i>Chiudi</button>
+            <button type="button" class="btn btn-primary" id="checkoutBtn"><i class="fa-solid fa-square-check mr-2"></i>Procedi con la prenotazione</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Pulsante vai in cima -->
+  <button id="back-to-top" type="button" onclick="window.scroll(0, 0)" class="btn back-to-top" title="Scorri in alto"
+    aria-label="Torna in cima alla pagina">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white text-center py-3">
+    <p class="mb-0">© 2024 Marco Petrucci - EasyReads. Progetto per Tecnologie Assistive per la Didattica.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="functions.js"></script>
+</body>
+
+</html>

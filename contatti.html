@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sezione Contatti | EasyReads</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #faqAccordion {
+      max-width: 90%;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #ddd
+    }
+
+    .faq-item button {
+      padding: 10px
+    }
+
+    .faq-item span {
+      font-size: 23px;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none
+    }
+
+    i.fa-chevron-up {
+      transition: .3s
+    }
+
+    .collapsed i.fa-chevron-up {
+      transform: rotate(180deg)
+    }
+
+    .faq-answer {
+      font-size: 19px;
+      padding: 0 20px;
+      color: #555;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      transition: .3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+      text-decoration: none
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar d-flex justify-content-between align-items-center flex-column flex-lg-row w-100" role="navigation">
+    <a href="index.html" id="logo" class="d-flex align-items-center mb-1 mb-lg-0" aria-label="Vai alla home">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Logo di EasyReads" width="50">
+      <h1 class="m-0">EasyReads</h1>
+    </a>
+    <ul class="list-unstyled d-flex">
+      <li>
+        <a href="index.html" aria-label="Vai alla home" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-home mr-1"></i> Home
+        </a>
+      </li>
+      <li>
+        <a href="catalogo.html" aria-label="Vai al catalogo" class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-book-open mr-1"></i> Catalogo
+        </a>
+      </li>
+      <li>
+        <a href="contatti.html" aria-label="Vai alla pagina dei contatti"
+          class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-info-circle mr-1"></i> Contatti
+        </a>
+      </li>
+      <li>
+        <a href="about-me.html" aria-label="Vai alla pagina about me"
+          class="d-lg-inline d-flex flex-column align-items-center">
+          <i class="fas fa-user mr-1"></i> About Me
+        </a>
+      </li>
+    </ul>
+    <button type="button" id="viewCartBtn" class="btn btn-light mt-2 mt-lg-0 d-none">
+      <i class="fa-solid fa-cart-shopping mr-2"></i>Visualizza carrello
+    </button>
+  </nav>
+
+  <main class="container mb-5">
+    <div class="row align-items-center flex-column-reverse flex-lg-row">
+      <div class="col-12 col-md-8">
+        <h2 class="text-center display-4 font-weight-bold mb-4" id="about-me-heading">FAQ - Domande frequenti</h2>
+        <div class="accordion mx-auto" id="faqAccordion">
+
+          <div class="faq-item mt-2">
+            <button id="firstFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <span>Come posso preordinare un libro?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseOne" aria-labelledby="firstFAQ" data-parent="#faqAccordion">
+              Puoi preordinare un libro <a href="catalogo.html">dal nostro catalogo online</a>, aggiungendolo al
+              "carrello" e completando il processo di prenotazione. Successivamente, potrai scegliere se ritirarlo in
+              biblioteca o richiedere la consegna a
+              domicilio.
+            </div>
+          </div>
+
+          <div class="faq-item mt-2">
+            <button id="secondFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <span>Posso scegliere la modalità di ritiro?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseTwo" aria-labelledby="secondFAQ" data-parent="#faqAccordion">
+              Sì, al momento della prenotazione puoi scegliere se ritirare il libro presso la biblioteca o riceverlo
+              comodamente a casa tramite il nostro servizio di consegna.
+            </div>
+          </div>
+
+          <div class="faq-item mt-2">
+            <button id="thirdFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <span>Quali sono i tempi di consegna?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseThree" aria-labelledby="thirdFAQ" data-parent="#faqAccordion">
+              I tempi di consegna variano in base alla disponibilità del libro e alla località di destinazione.
+              Generalmente, la consegna avviene entro 2-5 giorni lavorativi.
+            </div>
+          </div>
+
+          <div class="faq-item mt-2">
+            <button id="fourthFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              <span>Posso modificare o annullare una prenotazione?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseFour" aria-labelledby="fourthFAQ" data-parent="#faqAccordion">
+              Sì, puoi modificare o annullare una prenotazione entro 12 ore dalla conferma. Contattaci per ricevere
+              assistenza.
+            </div>
+          </div>
+
+          <div class="faq-item mt-2">
+            <button id="fifthFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              <span>Quali sono i costi per una consegna a domicilio?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseFive" aria-labelledby="fifthFAQ" data-parent="#faqAccordion">
+              Il servizio di consegna prevede un costo di €1 per ogni libro prenotato. Il ritiro in biblioteca è sempre
+              gratuito.
+            </div>
+          </div>
+
+          <div class="faq-item mt-2">
+            <button id="sixthFAQ"
+              class="btn d-flex justify-content-between align-items-center w-100 text-start collapsed" type="button"
+              data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              <span>Cosa succede se non posso ritirare il libro prenotato?</span>
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="faq-answer collapse" id="collapseSix" aria-labelledby="sixthFAQ" data-parent="#faqAccordion">
+              Se non puoi ritirare il libro prenotato, ti invitiamo a contattarci per trovare una soluzione alternativa.
+              Le prenotazioni non ritirate entro 7 giorni saranno annullate.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 text-center mb-4 mb-lg-0">
+        <h2 class="font-weight-bold mb-4">I nostri contatti</h2>
+        <div class="social-icons">
+          <a href="#" title="Seguici su Facebook" class="d-flex flex-column">
+            <i class="fab fa-facebook-square fa-3x"></i>Facebook
+          </a>
+          <a href="#" title="Seguici su Instagram" class="d-flex flex-column">
+            <i class="fab fa-instagram-square fa-3x"></i>Instagram
+          </a>
+          <a href="#" title="Seguici su Threads" class="d-flex flex-column">
+            <i class="fa-brands fa-square-threads fa-3x"></i>Threads
+          </a>
+          <a href="#" title="Inviaci una mail" class="d-flex flex-column">
+            <i class="fas fa-envelope fa-3x"></i>Email
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border border-2 my-5">
+
+    <h3 class="display-4 text-center">La mappa della nostra biblioteca</h3>
+    <img src="images/Mappa.jpg" title="Mappa della biblioteca" alt="Mappa della biblioteca"
+      class="d-block mx-auto img-fluid mt-4 rounded" width="550">
+
+    <!-- Carrello Modal -->
+    <div id="cartModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+      inert>
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cartModalLabel">Il tuo carrello</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="cartItemsList"></ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                class="fa-solid fa-xmark mr-2"></i>Chiudi</button>
+            <button type="button" class="btn btn-primary" id="checkoutBtn"><i
+                class="fa-solid fa-square-check mr-2"></i>Procedi con la prenotazione</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Pulsante vai in cima -->
+  <button id="back-to-top" type="button" onclick="window.scroll(0, 0)" class="btn back-to-top" title="Scorri in alto"
+    aria-label="Torna in cima alla pagina">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white text-center py-3">
+    <p class="mb-0">© 2024 Marco Petrucci - EasyReads. Progetto per Tecnologie Assistive per la Didattica.</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="functions.js"></script>
+</body>
+
+</html>
